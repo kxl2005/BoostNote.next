@@ -13,7 +13,7 @@ import {
 import { useState, useCallback, useEffect, useRef } from 'react'
 import ow from 'ow'
 import { schema, isValid } from '../predicates'
-import NoteDb from './NoteDb'
+import PouchNoteDb from './PouchNoteDb'
 import {
   getFolderPathname,
   getParentFolderPathname,
@@ -1341,7 +1341,7 @@ async function prepareStorage(
   adapter: 'idb' | 'memory'
 ): Promise<NoteStorage> {
   const pouchdb = new PouchDB(id, { adapter })
-  const db = new NoteDb(pouchdb, id, name)
+  const db = new PouchNoteDb(pouchdb, id, name)
   await db.init()
 
   const { noteMap, folderMap, tagMap } = await db.getAllDocsMap()

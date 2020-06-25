@@ -1,16 +1,16 @@
-import NoteDb from './NoteDb'
+import PouchNoteDb from './PouchNoteDb'
 import PouchDB from './PouchDB'
 import { getFolderId, getTagId, generateNoteId, getNow } from './utils'
 import { sortNotesByKeys } from '../sort'
 import { NoteDoc, FolderDoc, ExceptRev } from './types'
 
 let noteDbCount = 0
-async function prepareNoteDb(shouldInit = true): Promise<NoteDb> {
+async function prepareNoteDb(shouldInit = true): Promise<PouchNoteDb> {
   const id = `dummy${++noteDbCount}`
   const pouchDb = new PouchDB(id, {
     adapter: 'memory',
   })
-  const noteDb = new NoteDb(pouchDb, id, id)
+  const noteDb = new PouchNoteDb(pouchDb, id, id)
 
   if (shouldInit) {
     await noteDb.init()
@@ -19,7 +19,7 @@ async function prepareNoteDb(shouldInit = true): Promise<NoteDb> {
   return noteDb
 }
 
-describe('NoteDb', () => {
+describe('PouchNoteDb', () => {
   describe('#getFolder', () => {
     it('returns a folder', async () => {
       // Given

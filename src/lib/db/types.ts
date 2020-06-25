@@ -1,4 +1,4 @@
-import NoteDb from './NoteDb'
+import PouchNoteDb from './PouchNoteDb'
 import { JsonObject, Except } from 'type-fest'
 
 export type ObjectMap<T> = {
@@ -82,7 +82,7 @@ export interface AllDocsMap {
 export type NoteIdSet = Set<string>
 export type NoteStorage = NoteStorageData &
   AllPopulatedDocsMap & {
-    db: NoteDb
+    db: PouchNoteDb
     sync?: PouchDB.Replication.Sync<any>
     syncTimer?: any
   }
